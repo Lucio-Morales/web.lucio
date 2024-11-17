@@ -1,14 +1,25 @@
-import { ThemeProvider } from './context/ThemeContext';
+import styled, { ThemeProvider } from 'styled-components';
+import GlobalStyles from './styles/GlobalStyles/GlobalStyles';
+import { darkTheme } from './styles/theme';
+import Header from './pages/header/Header';
+import { Outlet } from 'react-router-dom';
 
-import Header from './components/header/Header';
+const Main = styled.main`
+  padding-bottom: 60px; /* Ajusta según la altura del Header en mobile */
+  @media (min-width: 768px) {
+    margin-left: 80px; /* Ajusta según el ancho del Header en desktop */
+    padding-bottom: 0;
+  }
+`;
 
 function App() {
   return (
-    <ThemeProvider>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex flex-col min-h-screen bg-light-background dark:bg-dark-background"></main>
-      </div>
+    <ThemeProvider theme={darkTheme}>
+      <GlobalStyles />
+      <Header />
+      <Main>
+        <Outlet />
+      </Main>
     </ThemeProvider>
   );
 }
